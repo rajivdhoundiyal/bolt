@@ -26,26 +26,43 @@ const Login = ({ parentStateSetter }) => {
   };
 
   return (
-    <StyledWrapper className="pb-4 px-6 mt-6">
+    <StyledWrapper className="clear-left clear-right">
       <div className="">
         <div className="text-xl font-semibold select-none">
           <span>
             <Bruno width={80} />
           </span>
-          Bolt
+          <div className="uppercase font-bold mt-2 heading-banner">Bolt</div>
         </div>
       </div>
 
-      <div className="uppercase font-semibold heading mt-10">Login</div>
-      <div className="mt-4 flex items-center collection-options select-none">
-        <div className="flex items-center">
-          <input type="text" placeholder="Username"></input>
+      <div className="container items-center">
+        <div className="uppercase font-semibold mt-20">
+          <text className="block w-full pl-1 py-1 heading">Login</text>
         </div>
-        <div className="flex items-center ml-6">
-          <input type="password" placeholder="Password"></input>
-        </div>
-        <div className="flex items-center ml-6" onClick={() => doLogin(true)}>
-          <input type="submit" placeholder="Loing" name="Login"></input>
+        <div className="mt-4 flex-wrap items-center collection-options select-none">
+          <div className="flex items-center">
+            <input
+              type="text"
+              className="block border-solid border-2 border-red w-80 pl-3 py-4 mb-6 sm:text-sm"
+              placeholder="Username"
+            ></input>
+          </div>
+          <div className="flex items-center">
+            <input
+              type="password"
+              className="block border-solid border-2 border-red-70 w-80 pl-3 py-4 sm:text-sm"
+              placeholder="Password"
+            ></input>
+          </div>
+          <div className="flex items-center" onClick={() => doLogin(true)}>
+            <input
+              type="submit"
+              className="submit btn btn-sm btn-secondary w-1/3 h-10 py-4 mt-6"
+              placeholder="Loing"
+              name="Login"
+            ></input>
+          </div>
         </div>
       </div>
     </StyledWrapper>

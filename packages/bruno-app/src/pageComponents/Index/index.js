@@ -6,6 +6,7 @@ import RequestTabPanel from 'components/RequestTabPanel';
 import Sidebar from 'components/Sidebar';
 import { useSelector } from 'react-redux';
 import StyledWrapper from './StyledWrapper';
+import StyledWrapperLogin from './StyledWrapperLogin';
 import 'codemirror/theme/material.css';
 import 'codemirror/theme/monokai.css';
 import 'codemirror/addon/scroll/simplescrollbars.css';
@@ -62,28 +63,34 @@ export default function Main() {
     [setIsAuthenticated]
   );
 
+  const loginStyle = {
+    'align-items': 'center',
+    'justify-content': 'center',
+    'flex-direction': 'column'
+  };
+
   return (
     <div>
-      <StyledWrapper className={className}>
-        {isAuthenticated ? (
-          <>
-            {' '}
-            <Sidebar parentStateSetter={wrapperSetParentState} />
-            <section className="flex flex-grow flex-col overflow-auto">
-              {showHomePage ? (
-                <Welcome />
-              ) : (
-                <>
-                  <RequestTabs />
-                  <RequestTabPanel key={activeTabUid} />
-                </>
-              )}
-            </section>{' '}
-          </>
-        ) : (
+      {isAuthenticated ? (
+        <StyledWrapper className={className}>
+          {' '}
+          <Sidebar parentStateSetter={wrapperSetParentState} />
+          <section className="flex flex-grow flex-col overflow-auto">
+            {showHomePage ? (
+              <Welcome />
+            ) : (
+              <>
+                <RequestTabs />
+                <RequestTabPanel key={activeTabUid} />
+              </>
+            )}
+          </section>{' '}
+        </StyledWrapper>
+      ) : (
+        <StyledWrapperLogin className={className}>
           <Login parentState={isAuthenticated} parentStateSetter={wrapperSetParentState}></Login>
-        )}
-      </StyledWrapper>
+        </StyledWrapperLogin>
+      )}
     </div>
   );
 }

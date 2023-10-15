@@ -23,7 +23,7 @@ const ExportCollection = ({ onClose, collection }) => {
     <Modal size="sm" title="Export Collection" hideFooter={true} handleConfirm={onClose} handleCancel={onClose}>
       <div>
         <div className="text-link hover:underline cursor-pointer" onClick={handleExportBrunoCollection}>
-          Bruno Collection
+          Bolt Collection
         </div>
         <div className="text-link hover:underline cursor-pointer mt-2" onClick={handleExportPostmanCollection}>
           Postman Collection

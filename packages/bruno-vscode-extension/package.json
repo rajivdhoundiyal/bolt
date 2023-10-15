@@ -1,9 +1,9 @@
 {
   "name": "bruno",
-  "displayName": "Bruno",
-  "description": "Bruno support for Visual Studio Code.",
+  "displayName": "Bolt",
+  "description": "Bolt support for Visual Studio Code.",
   "version": "0.0.1",
-  "license" : "MIT",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.74.0"
   },
@@ -11,16 +11,25 @@
     "Programming Languages"
   ],
   "contributes": {
-    "languages": [{
-      "id": "bruno",
-      "aliases": ["bruno", "bruno"],
-      "extensions": [".bru"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "bruno",
-      "scopeName": "source.bru",
-      "path": "./syntaxes/bruno.tmLanguage.json"
-    }]
+    "languages": [
+      {
+        "id": "bruno",
+        "aliases": [
+          "bruno",
+          "bruno"
+        ],
+        "extensions": [
+          ".bru"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "bruno",
+        "scopeName": "source.bru",
+        "path": "./syntaxes/bruno.tmLanguage.json"
+      }
+    ]
   }
 }
