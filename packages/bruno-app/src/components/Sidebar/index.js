@@ -13,7 +13,7 @@ import { useTheme } from 'providers/Theme';
 const MIN_LEFT_SIDEBAR_WIDTH = 222;
 const MAX_LEFT_SIDEBAR_WIDTH = 600;
 
-const Sidebar = () => {
+const Sidebar = ({ parentStateSetter }) => {
   const leftSidebarWidth = useSelector((state) => state.app.leftSidebarWidth);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
 
@@ -82,7 +82,7 @@ const Sidebar = () => {
 
           <div className="flex flex-col w-full" style={{ width: asideWidth }}>
             <div className="flex flex-col flex-grow">
-              <TitleBar />
+              <TitleBar parentStateSetter={parentStateSetter} />
               <Collections />
             </div>
 

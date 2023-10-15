@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useState, useCallback } from 'react';
 import classnames from 'classnames';
 import Welcome from 'components/Welcome';
 import RequestTabs from 'components/RequestTabs';
@@ -10,6 +10,7 @@ import 'codemirror/theme/material.css';
 import 'codemirror/theme/monokai.css';
 import 'codemirror/addon/scroll/simplescrollbars.css';
 import Documentation from 'components/Documentation';
+import Login from 'components/Login';
 
 const SERVER_RENDERED = typeof navigator === 'undefined' || global['PREVENT_CODEMIRROR_RENDER'] === true;
 if (!SERVER_RENDERED) {
@@ -44,6 +45,7 @@ export default function Main() {
   const activeTabUid = useSelector((state) => state.tabs.activeTabUid);
   const isDragging = useSelector((state) => state.app.isDragging);
   const showHomePage = useSelector((state) => state.app.showHomePage);
+  const [isAuthenticated, setIsAuthenticated] = useState(0);
 
   // Todo: write a better logging flow that can be used to log by turning on debug flag
   // Enable for debugging.
@@ -53,20 +55,34 @@ export default function Main() {
     'is-dragging': isDragging
   });
 
+  const wrapperSetParentState = useCallback(
+    (val) => {
+      setIsAuthenticated(val);
+    },
+    [setIsAuthenticated]
+  );
+
   return (
     <div>
       <StyledWrapper className={className}>
-        <Sidebar />
-        <section className="flex flex-grow flex-col overflow-auto">
-          {showHomePage ? (
-            <Welcome />
-          ) : (
-            <>
-              <RequestTabs />
-              <RequestTabPanel key={activeTabUid} />
-            </>
-          )}
-        </section>
+        {isAuthenticated ? (
+          <>
+            {' '}
+            <Sidebar parentStateSetter={wrapperSetParentState} />
+            <section className="flex flex-grow flex-col overflow-auto">
+              {showHomePage ? (
+                <Welcome />
+              ) : (
+                <>
+                  <RequestTabs />
+                  <RequestTabPanel key={activeTabUid} />
+                </>
+              )}
+            </section>{' '}
+          </>
+        ) : (
+          <Login parentState={isAuthenticated} parentStateSetter={wrapperSetParentState}></Login>
+        )}
       </StyledWrapper>
     </div>
   );

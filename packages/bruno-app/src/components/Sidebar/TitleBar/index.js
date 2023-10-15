@@ -6,17 +6,18 @@ import ImportCollection from 'components/Sidebar/ImportCollection';
 import ImportCollectionLocation from 'components/Sidebar/ImportCollectionLocation';
 
 import { IconDots } from '@tabler/icons';
-import { useState, forwardRef, useRef } from 'react';
+import { useState, forwardRef, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { showHomePage } from 'providers/ReduxStore/slices/app';
 import { openCollection, importCollection } from 'providers/ReduxStore/slices/collections/actions';
 import StyledWrapper from './StyledWrapper';
 
-const TitleBar = () => {
+const TitleBar = ({ parentStateSetter }) => {
   const [importedCollection, setImportedCollection] = useState(null);
   const [createCollectionModalOpen, setCreateCollectionModalOpen] = useState(false);
   const [importCollectionModalOpen, setImportCollectionModalOpen] = useState(false);
   const [importCollectionLocationModalOpen, setImportCollectionLocationModalOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
   const dispatch = useDispatch();
   const { ipcRenderer } = window;
 
@@ -49,6 +50,14 @@ const TitleBar = () => {
     dispatch(openCollection()).catch(
       (err) => console.log(err) && toast.error('An error occurred while opening the collection')
     );
+  };
+
+  useEffect(() => {
+    parentStateSetter(isAuthenticated);
+  }, [parentStateSetter, isAuthenticated]);
+
+  const doLogout = () => {
+    setIsAuthenticated(false);
   };
 
   const openDevTools = () => {
@@ -117,6 +126,16 @@ const TitleBar = () => {
               }}
             >
               Devtools
+            </div>
+            <hr></hr>
+            <div
+              className="dropdown-item"
+              onClick={(e) => {
+                menuDropdownTippyRef.current.hide();
+                doLogout();
+              }}
+            >
+              Logout
             </div>
           </Dropdown>
         </div>
